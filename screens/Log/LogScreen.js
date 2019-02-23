@@ -5,18 +5,26 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   Button,
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
-import { MonoText } from '../components/StyledText';
+import { MonoText } from '../../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: 'Useless Multiline Placeholder',
+    };
+  }
 
   render() {
     return (
@@ -25,6 +33,11 @@ export default class HomeScreen extends React.Component {
             <Button title={'Scan QR Code'} onPress={()=>{console.log('yo')}}/>
             <Button title={'Fill In Details'} onPress={()=>{console.log('yo')}}/>
             <Button title={'Take Photos'} onPress={()=>{console.log('yo')}}/>
+            
+            <TextInput          
+              onChangeText={(text) => this.setState({text})}
+              value={this.state.text}>
+            </TextInput>
 
         </ScrollView>
 
