@@ -1,0 +1,92 @@
+import React from 'react';
+import { Platform } from 'react-native';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+
+import TabBarIcon from '../components/TabBarIcon';
+import HomeScreen from '../screens/HomeScreen';
+import LinksScreen from '../screens/LinksScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import LogScreen from '../screens/LogScreen';
+import RetrieveScreen from '../screens/RetrieveScreen';
+
+import { create } from 'uuid-js';
+
+const HomeStack = createStackNavigator({
+  Home: HomeScreen,
+});
+
+HomeStack.navigationOptions = {
+  tabBarLabel: 'Home',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
+};
+
+const LinksStack = createStackNavigator({
+  Links: LinksScreen,
+});
+
+LinksStack.navigationOptions = {
+  tabBarLabel: 'Links',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+    />
+  ),
+};
+
+const LogStack = createStackNavigator({
+  Log: LogScreen,
+})
+
+LogStack.navigationOptions = {
+  tabBarLabel: 'Log Data',
+  tabBarIcon: ({focused}) => (
+    <TabBarIcon 
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'}
+    />
+  )
+}
+
+const RetrieveStack = createStackNavigator({
+  Retrieve: RetrieveScreen,
+})
+
+RetrieveStack.navigationOptions = {
+  tabBarLabel: 'Retrieve Data',
+  tabBarIcon: ({focused}) => (
+    <TabBarIcon 
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-book' : 'md-book'}
+    />
+  )
+}
+
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen,
+});
+
+SettingsStack.navigationOptions = {
+  tabBarLabel: 'Settings',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
+export default createBottomTabNavigator({
+  LogStack,
+  RetrieveStack,
+  SettingsStack,
+});
