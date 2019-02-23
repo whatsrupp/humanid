@@ -14,6 +14,7 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../../components/StyledText';
 
+import Form from './Form'
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -25,6 +26,8 @@ export default class HomeScreen extends React.Component {
       text: 'Useless Multiline Placeholder',
     };
   }
+
+
 
   render() {
     return (
@@ -38,6 +41,8 @@ export default class HomeScreen extends React.Component {
               onChangeText={(text) => this.setState({text})}
               value={this.state.text}>
             </TextInput>
+
+            <Form />
 
         </ScrollView>
 
