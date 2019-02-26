@@ -10,11 +10,13 @@ import {
   Button,
   View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
+
+import { Picker, Container, Header, Content, Title,Left, Right, Body, Form, Item, Input, Icon, Label, DatePicker } from 'native-base';
+
 
 import { MonoText } from '../../components/StyledText';
 
-import Form from './Form'
+import FormTest from './Form'
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -23,36 +25,79 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: 'Useless Multiline Placeholder',
+      selected: 'key0',
     };
   }
 
+  onValueChange(value) {
+    this.setState({
+      selected: value
+    });
+  }
 
 
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-            <Button title={'Scan QR Code'} onPress={()=>{console.log('yo')}}/>
-            <Button title={'Fill In Details'} onPress={()=>{console.log('yo')}}/>
-            <Button title={'Take Photos'} onPress={()=>{console.log('yo')}}/>
+      <Container>
+        <Header>
+          <Body><Title>Log Data</Title></Body>
+        </Header>
+        <Content>
+        <Form>
+            <Item>
+              <Icon active type='FontAwesome' name='qrcode' />
+              <Input placeholder='Scan QR Code'/>
+            </Item>
+            <Item>
+              <Icon active type='FontAwesome' name='map-marker' />
+              <Input placeholder='Place of Disaster'/>
+            </Item>
+            <Item>
+              <Icon active type='FontAwesome' name='calendar' />
+              <Input placeholder='Date of Disaster'/>
+            </Item>
+            <Item>
+            <Icon active type='FontAwesome' name='transgender' />
+
+            <Picker
+              mode="dropdown"
+              iosHeader="Select Gender"
+              iosIcon={<Icon name="arrow-down" />}
+              selectedValue={this.state.selected}
+              onValueChange={this.onValueChange.bind(this)}
+
+            >
+              <Picker.Item label="Male" value="key0" />
+              <Picker.Item label="Female" value="key1" />
+              <Picker.Item label="Unknown" value="key2" />
+            </Picker>
+            </Item>
+
+          </Form>
+        </Content>
+      </Container>
+      // <View style={styles.container}>
+      //   <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      //       <Button title={'Scan QR Code'} onPress={()=>{console.log('yo')}}/>
+      //       <Button title={'Fill In Details'} onPress={()=>{console.log('yo')}}/>
+      //       <Button title={'Take Photos'} onPress={()=>{console.log('yo')}}/>
             
-            <TextInput          
-              onChangeText={(text) => this.setState({text})}
-              value={this.state.text}>
-            </TextInput>
+      //       <TextInput          
+      //         onChangeText={(text) => this.setState({text})}
+      //         value={this.state.text}>
+      //       </TextInput>
 
-            <Form />
+      //       <Form />
 
-        </ScrollView>
+      //   </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
+      //   <View style={styles.tabBarInfoContainer}>
 
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>Hello Miranda</MonoText>
-          </View>
-        </View>
-      </View>
+      //     <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+      //       <MonoText style={styles.codeHighlightText}>Hello Miranda</MonoText>
+      //     </View>
+      //   </View>
+      // </View>
     );
   }
 
