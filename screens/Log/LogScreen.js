@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 
 
 import { MonoText } from '../../components/StyledText';
-
+import QrScanner from './QrScanner'
 import FormTest from './Form'
 export default class LogScreen extends React.Component {
   static navigationOptions = {
@@ -33,6 +33,7 @@ export default class LogScreen extends React.Component {
   render() {
     return (
       <Container>
+        <QrScanner />
         <Header>
           <Body><Title>Log Data</Title></Body>
         </Header>
