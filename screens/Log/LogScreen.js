@@ -1,12 +1,13 @@
 import React from 'react';
 
 
-import { Button, Container, ListItem, Header, Content, Title, Right, Body, Form, Icon, Text } from 'native-base';
+import { Button, Container, ListItem, Header, Separator, Content, Title, Right, Body, Form, Icon, Text } from 'native-base';
 import { Formik, Field } from 'formik';
 
 import QrInput from './QrInput'
 import GeolocationField from './GeolocationField';
 import GenderPicker from './GenderPicker';
+import RadioField from './RadioField';
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -52,8 +53,16 @@ export default class LogScreen extends React.Component {
                 </Right>
             </ListItem>
 
+
             <GeolocationField />
             <Field component={GenderPicker} name='gender' />
+            <Separator bordered>
+              <Text>Forensic Evidence</Text>
+            </Separator>
+            <Field component={RadioField} title="Fingerprint" name="fingerprint" iconName="fingerprint" iconType="MaterialIcons"/>
+            <Field component={RadioField} title="Skin Sample" name="skinSample" iconName="user" iconType="FontAwesome"/>
+            <Field component={RadioField} title="Hair" name="hair" iconName="scissors" iconType="Feather"/>
+
             <Button full success onPress={props.handleSubmit}><Text>Submit</Text></Button>
           </Form>
           )}}
