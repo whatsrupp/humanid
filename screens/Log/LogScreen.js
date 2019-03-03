@@ -8,6 +8,8 @@ import { Formik } from 'formik';
 import { MonoText } from '../../components/StyledText';
 import QrScanner from './QrScanner'
 import FormTest from './Form'
+
+import QrInput from './QrInput'
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -33,7 +35,7 @@ export default class LogScreen extends React.Component {
   render() {
     return (
       <Container>
-        <QrScanner />
+        {/* <QrScanner /> */}
         <Header>
           <Body><Title>Log Data</Title></Body>
         </Header>
@@ -44,15 +46,16 @@ export default class LogScreen extends React.Component {
             console.log(values)
           }}
           render={props =>{
-            console.log(props.values)
             return(
           <Form>
-              <Item>
-                <Icon active type='FontAwesome' name='qrcode' />
-                <Input placeholder='Scan QR Code' onChangeText={props.handleChange('qrCode')} onBlur={props.handleBlur('qrCode')} value={props.values.name} name="qrCode"/>
-              </Item>
-              <Button full success onPress={props.handleSubmit}><Text>Submit</Text></Button>
-            </Form>
+            <QrInput {...props} />
+            <Item>
+                <Icon active type='FontAwesome' name='calendar' />
+                <Text>{new Date().toLocaleDateString()}</Text>
+                <Input placeholder='Date of Disaster'/>
+            </Item>
+            <Button full success onPress={props.handleSubmit}><Text>Submit</Text></Button>
+          </Form>
           )}}
         >
           </Formik>

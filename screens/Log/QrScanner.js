@@ -21,8 +21,9 @@ export default class BarcodeScannerExample extends React.Component {
     if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
     }
+
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, height:  200 }}>
         <BarCodeScanner
           onBarCodeScanned={this.handleBarCodeScanned}
           style={StyleSheet.absoluteFill}
@@ -32,6 +33,6 @@ export default class BarcodeScannerExample extends React.Component {
   }
 
   handleBarCodeScanned = ({ type, data }) => {
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    this.props.handleQRSubmit(data)
   }
 }
