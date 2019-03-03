@@ -1,16 +1,12 @@
 import React from 'react';
 
 
-import { Picker, Button, Container, ListItem, Radio, Header, Content, Title,Left, Right, Body, Form, Item, Input, Icon, Label, DatePicker, Separator, Text } from 'native-base';
-import { Formik } from 'formik';
-
-
-import { MonoText } from '../../components/StyledText';
-import QrScanner from './QrScanner'
-import FormTest from './Form'
+import { Button, Container, ListItem, Header, Content, Title, Right, Body, Form, Icon, Text } from 'native-base';
+import { Formik, Field } from 'formik';
 
 import QrInput from './QrInput'
 import GeolocationField from './GeolocationField';
+import GenderPicker from './GenderPicker';
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -36,7 +32,6 @@ export default class LogScreen extends React.Component {
   render() {
     return (
       <Container>
-        {/* <QrScanner /> */}
         <Header>
           <Body><Title>Log Data</Title></Body>
         </Header>
@@ -58,6 +53,7 @@ export default class LogScreen extends React.Component {
             </ListItem>
 
             <GeolocationField />
+            <Field component={GenderPicker} name='gender' />
             <Button full success onPress={props.handleSubmit}><Text>Submit</Text></Button>
           </Form>
           )}}

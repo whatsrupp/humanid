@@ -52,7 +52,7 @@ export default class LogScreen extends React.Component {
                 <Input placeholder='Date of Disaster'/>
               </Item>
               <Item>
-              <Icon active type='FontAwesome' name='transgender' />
+                <Icon active type='FontAwesome' name='transgender' />
               <Right>
 
               <Picker
