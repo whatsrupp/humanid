@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Alert, Picker, Button, Container, ListItem, Radio, Header, Modal, Content, Title,Left, Right, Body, Form, Item, Input, Icon, Label, DatePicker, Separator, Text } from 'native-base';
+import { Button, Icon, Text } from 'native-base';
 
 import QrScanner from './QrScanner'
 
@@ -70,7 +70,4 @@ export default class QrInput extends Component {
             </>
         )
     }
-
-    
-
 }
