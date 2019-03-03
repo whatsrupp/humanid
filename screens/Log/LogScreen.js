@@ -46,6 +46,9 @@ export default class LogScreen extends React.Component {
             return(
           <Form>
             <QrInput {...props} />
+            <Separator bordered>
+              <Text>General Information</Text>
+            </Separator>
             <ListItem>
                 <Icon active type='FontAwesome' name='calendar' />
                 <Right>
@@ -62,7 +65,9 @@ export default class LogScreen extends React.Component {
             <Field component={RadioField} title="Fingerprint" name="fingerprint" iconName="fingerprint" iconType="MaterialIcons"/>
             <Field component={RadioField} title="Skin Sample" name="skinSample" iconName="user" iconType="FontAwesome"/>
             <Field component={RadioField} title="Hair" name="hair" iconName="scissors" iconType="Feather"/>
-
+            <Separator bordered>
+              <Text>Physical Evidence</Text>
+            </Separator>
             <Button full success onPress={props.handleSubmit}><Text>Submit</Text></Button>
           </Form>
           )}}
