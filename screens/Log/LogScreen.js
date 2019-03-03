@@ -10,6 +10,7 @@ import QrScanner from './QrScanner'
 import FormTest from './Form'
 
 import QrInput from './QrInput'
+import GeolocationField from './GeolocationField';
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -49,11 +50,14 @@ export default class LogScreen extends React.Component {
             return(
           <Form>
             <QrInput {...props} />
-            <Item>
+            <ListItem>
                 <Icon active type='FontAwesome' name='calendar' />
-                <Text>{new Date().toLocaleDateString()}</Text>
-                <Input placeholder='Date of Disaster'/>
-            </Item>
+                <Right>
+                  <Text>{new Date().toLocaleDateString()}</Text>
+                </Right>
+            </ListItem>
+
+            <GeolocationField />
             <Button full success onPress={props.handleSubmit}><Text>Submit</Text></Button>
           </Form>
           )}}
