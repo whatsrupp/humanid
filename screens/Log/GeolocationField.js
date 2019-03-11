@@ -48,8 +48,10 @@ export default class GeolocationField extends Component {
 
     return (
       <ListItem>
-        <Icon active type='FontAwesome' name='map-marker' />
-        <Text>Longitude: {longitudeText}</Text> 
+        <View style={{width: 40, marginRight: 10, flex: 1}}>
+          <Icon active type='FontAwesome' name='map-marker'/>
+        </View>
+        <Text style={{marginRight: 10}}>Longitude: {longitudeText}</Text> 
         <Text>Latitude: {latitudeText}</Text>
       </ListItem>
     );

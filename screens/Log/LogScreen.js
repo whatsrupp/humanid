@@ -1,13 +1,14 @@
 import React from 'react';
 
 
-import { Button, Container, ListItem, Header, Separator, Content, Title, Right, Body, Form, Icon, Text } from 'native-base';
-import { Formik, Field } from 'formik';
+import { Alert, Button, Container, ListItem, Header, Separator, Content, Title, Right, Body, Form, Icon, Text, View } from 'native-base';
+import { Formik, Field, FieldArray } from 'formik';
 
 import QrInput from './QrInput'
 import GeolocationField from './GeolocationField';
 import GenderPicker from './GenderPicker';
 import RadioField from './RadioField';
+import PhysicalEvidenceFields from './PhysicalEvidenceFields'
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -28,7 +29,7 @@ export default class LogScreen extends React.Component {
     });
   }
 
-
+ 
 
   render() {
     return (
@@ -43,6 +44,11 @@ export default class LogScreen extends React.Component {
             console.log(values)
           }}
           render={props =>{
+
+            const handleSubmitButtonPress = () =>{
+              props.handleSubmit()
+              alert('Miranda Smells')
+            }
             return(
           <Form>
             <QrInput {...props} />
@@ -50,10 +56,10 @@ export default class LogScreen extends React.Component {
               <Text>General Information</Text>
             </Separator>
             <ListItem>
+              <View style={{flex:1}}>
                 <Icon active type='FontAwesome' name='calendar' />
-                <Right>
+              </View>
                   <Text>{new Date().toLocaleDateString()}</Text>
-                </Right>
             </ListItem>
 
 
@@ -68,7 +74,8 @@ export default class LogScreen extends React.Component {
             <Separator bordered>
               <Text>Physical Evidence</Text>
             </Separator>
-            <Button full success onPress={props.handleSubmit}><Text>Submit</Text></Button>
+            <FieldArray name="physicalEvidenceEntries" component={PhysicalEvidenceFields} />
+            <Button full success onPress={handleSubmitButtonPress}><Text>Submit</Text></Button>
           </Form>
           )}}
         >
