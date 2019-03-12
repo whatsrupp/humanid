@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import Camera from './Camera'
-import { Button, Icon, Text } from 'native-base';
+import { Button, Icon, Text, Thumbnail } from 'native-base';
 import { BlurView } from 'expo';
-import { Image, StyleSheet, View, Modal } from 'react-native';
+import { Image, StyleSheet, View, Modal, ScrollView } from 'react-native';
 
 export default class CameraInput extends Component {
     constructor(props){
@@ -75,12 +75,34 @@ export default class CameraInput extends Component {
         return this.state.isOpen ? cancelButton : openButton 
 
     }
+
+    renderThumbnails = ()=>{
+        const fieldArrayName = this.props.name
+        const entries = this.props.form.values[fieldArrayName]
+        if (!entries) return null
+
+        return entries.map((entry, index)=>{
+            const fieldName = `${fieldArrayName}.${index}`
+             return(
+                 <Thumbnail key={fieldName} source={{uri: entries[index]}} style={{margin: 10}}/>
+             )
+        })
+       
+
+
+    }
     
     render = () => {
         return (<>
-
-            {this.renderCameraButton()}
             {this.renderCamera()}
+            <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={true}
+            >
+            {this.renderThumbnails()}
+            </ScrollView>
+            {this.renderCameraButton()}
+
         </>)
     
     }
