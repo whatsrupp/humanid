@@ -9,6 +9,7 @@ import GeolocationField from './GeolocationField';
 import GenderPicker from './GenderPicker';
 import RadioField from './RadioField';
 import PhysicalEvidenceFields from './PhysicalEvidenceFields'
+import CameraInput from './CameraInput';
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -33,7 +34,7 @@ export default class LogScreen extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{marginBottom: 5}}>
         <Header>
           <Body><Title>Log Data</Title></Body>
         </Header>
@@ -47,7 +48,6 @@ export default class LogScreen extends React.Component {
 
             const handleSubmitButtonPress = () =>{
               props.handleSubmit()
-              alert('Miranda Smells')
             }
             return(
           <Form>
@@ -75,7 +75,12 @@ export default class LogScreen extends React.Component {
               <Text>Physical Evidence</Text>
             </Separator>
             <FieldArray name="physicalEvidenceEntries" component={PhysicalEvidenceFields} />
-            <Button full success onPress={handleSubmitButtonPress}><Text>Submit</Text></Button>
+
+            <Separator bordered>
+              <Text>Photos</Text>
+            </Separator>
+            <FieldArray component={CameraInput} name="photos" />
+            <Button full style={ {zIndex: 2} } success onPress={handleSubmitButtonPress}><Text>Submit</Text></Button>
           </Form>
           )}}
         >
