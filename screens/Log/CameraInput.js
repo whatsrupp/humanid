@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import Camera from './Camera'
 import { Button, Icon, Text, Thumbnail } from 'native-base';
 import { BlurView } from 'expo';
-import { Image, StyleSheet, View, Modal, ScrollView } from 'react-native';
+import { Image, StyleSheet, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
 
+const thumbnailSize = 50
 export default class CameraInput extends Component {
     constructor(props){
         super(props)
         this.state = {
-            isOpen: true,
+            isOpen: false,
             modalVisible: false,
             isSavingPhoto: false
         }
@@ -84,7 +85,7 @@ export default class CameraInput extends Component {
         return entries.map((entry, index)=>{
             const fieldName = `${fieldArrayName}.${index}`
              return(
-                 <Thumbnail key={fieldName} source={{uri: entries[index]}} style={{margin: 10}}/>
+                 <Thumbnail key={fieldName} source={{uri: entries[index]}} style={{margin: 10, height: thumbnailSize, width: thumbnailSize, borderRadius: thumbnailSize/2}}/>
              )
         })
        
@@ -100,6 +101,21 @@ export default class CameraInput extends Component {
             showsHorizontalScrollIndicator={true}
             >
             {this.renderThumbnails()}
+            <TouchableOpacity 
+                style={{ borderWidth:1,
+                    borderColor:'rgba(0,0,0,0.2)',
+                    alignItems:'center',
+                    justifyContent:'center',
+                    width:thumbnailSize,
+                    height:thumbnailSize,
+                    backgroundColor:'#fff',
+                    borderRadius:thumbnailSize,
+                    margin: 10,
+                }}
+                onPress={this.openCamera}
+            >
+                <Icon style={{fontSize: 10}}active type='FontAwesome' name='plus' />
+            </TouchableOpacity>
             </ScrollView>
             {this.renderCameraButton()}
 
