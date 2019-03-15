@@ -1,5 +1,4 @@
 import Expo, { SQLite } from 'expo';
-
 const db = SQLite.openDatabase('humanId');
 
 const executeSql = async (sql, params = []) => {
@@ -12,6 +11,53 @@ const executeSql = async (sql, params = []) => {
             reject
         )
     }))
+}
+
+const serializeStringArray = (list) => {
+    return list.join(';')
+}
+
+const insertEntry = async (values)=> {
+    const sqlString = `INSERT INTO entries (
+        qrCode,
+        dateOfEntry,
+        latitude,
+        longitude,
+        gender,
+        fingerprint,
+        skin,
+        hair,
+        physicalEvidence,
+        photoUrls
+        )
+        VALUES
+        (
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?',
+        ?
+        )`
+
+    const parameters = [
+        values.qrCode,
+        new Date().toUTCString(),
+        values.latitude,
+        values.longitude,
+        values.gender,
+        values.fingerprint,
+        values.skin,
+        values.hair,
+        serializeStringArray(values.physicalEvidenceEntries),
+        serializeStringArray(values.photos)
+    ]
+
+    console.log(parameters)
 }
 
 
@@ -32,33 +78,8 @@ const submitForm = async (values)=> {
 
     await executeSql(createTableString);
 
-    const insertEntryString = `INSERT INTO entries (
-        qrCode,
-        dateOfEntry,
-        latitude,
-        longitude,
-        gender,
-        fingerprint,
-        skin,
-        hair,
-        physicalEvidence,
-        photoUrls
-        )
-        VALUES
-        (
-        'abc123',
-        12345,
-        0.12346,
-        0.12345,
-        'male',
-        true,
-        true,
-        true,
-        'bones;skulls;',
-        'url1;url2'
-        )`
+    const test = await insertEntry(values)
 
-    const resultSetInsert = await executeSql(insertEntryString);
     const getEntriesString = `SELECT * FROM entries`
     const resultSet = await executeSql(getEntriesString)
       
