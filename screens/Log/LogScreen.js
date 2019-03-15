@@ -10,6 +10,8 @@ import GenderPicker from './GenderPicker';
 import RadioField from './RadioField';
 import PhysicalEvidenceFields from './PhysicalEvidenceFields'
 import CameraInput from './CameraInput';
+import submitValuesToDatabase from './submitValuesToDatabase'
+
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -41,8 +43,14 @@ export default class LogScreen extends React.Component {
         <Content>
         <Formik
           initialValues={{}}
-          onSubmit={(values, actions) => {
+          onSubmit={async (values, actions) => {
             console.log(values)
+            try{
+              await submitValuesToDatabase(values)
+            }catch(err){
+              console.log('bloop loop', err)
+            }
+              
           }}
           render={props =>{
 
