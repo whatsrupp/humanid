@@ -21,6 +21,12 @@ export default class GeolocationField extends Component {
     }
   }
 
+  updateFormValues = ({longitude, latitude}) => {
+    this.props.form.setFieldValue('longitude', longitude)
+    this.props.form.setFieldValue('latitude', latitude)
+
+  }
+
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -30,6 +36,10 @@ export default class GeolocationField extends Component {
     }
 
     let location = await Location.getCurrentPositionAsync({});
+    this.updateFormValues({
+      longitude: location.coords.longitude,
+      latitude: location.coords.latitude
+    })
     this.setState({ location });
   };
 

@@ -1,7 +1,7 @@
 import React from 'react';
+import * as Yup from 'yup';
 
-
-import { Alert, Button, Container, ListItem, Header, Separator, Content, Title, Right, Body, Form, Icon, Text, View } from 'native-base';
+import { Alert, Button, Container, ListItem, Header, Separator, Content, Title, Right, Body, Form, Icon, Text, View, Toast } from 'native-base';
 import { Formik, Field, FieldArray } from 'formik';
 
 import QrInput from './QrInput'
@@ -11,6 +11,19 @@ import RadioField from './RadioField';
 import PhysicalEvidenceFields from './PhysicalEvidenceFields'
 import CameraInput from './CameraInput';
 import submitValuesToDatabase from './submitValuesToDatabase'
+
+const formSchema = Yup.object().shape({
+  qrCode: Yup.string().required('Please scan a QR code'),
+  gender: Yup.string().required('Please select a gender'),
+  photos: Yup.array().of(Yup.string()),
+  physicalEvidenceEntries: Yup.array().of(Yup.string()),
+  fingerprint: Yup.bool().required('Required'),
+  hair: Yup.bool().required('Required'),
+  skin: Yup.bool().required('Required'),
+  longitude: Yup.number().required('Required'),
+  latitude: Yup.number().required('Required'),
+});
+
 
 export default class LogScreen extends React.Component {
   static navigationOptions = {
@@ -42,19 +55,46 @@ export default class LogScreen extends React.Component {
         </Header>
         <Content>
         <Formik
-          initialValues={{}}
+          initialValues={{
+            hair: false,
+            skin: false,
+            fingerprint: false,
+            physicalEvidenceEntries: [],
+            photos: []
+          }}
+          validationSchema={formSchema}
           onSubmit={async (values, actions) => {
             console.log(values)
             try{
               await submitValuesToDatabase(values)
             }catch(err){
-              console.log('bloop loop', err)
+              console.log(err)
             }
               
           }}
           render={props =>{
 
             const handleSubmitButtonPress = () =>{
+              props.validateForm()
+              const errorKeys = Object.keys(props.errors)
+              if(errorKeys.length > 0){
+                let errorString = ""
+                errorKeys.forEach((key, index)=>{
+                  errorString += props.errors[key]
+                  if(index+1 != Object.keys(props.errors).length){
+                    errorString += "\n"
+                  }
+                })
+                Toast.show({
+                  text: errorString,
+                  position: 'bottom',
+                  duration: 5000,
+                  buttonText: 'Okay',
+                  type: 'warning'
+                })
+                return 
+              }
+              
               props.handleSubmit()
             }
             return(
@@ -70,8 +110,8 @@ export default class LogScreen extends React.Component {
                   <Text>{new Date().toLocaleDateString()}</Text>
             </ListItem>
 
-
-            <GeolocationField />
+            <Field component={GeolocationField} name="geolocation"/> 
+            {/* <GeolocationField /> */}
             <Field component={GenderPicker} name='gender' />
             <Separator bordered>
               <Text>Forensic Evidence</Text>
