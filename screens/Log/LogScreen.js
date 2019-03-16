@@ -64,7 +64,6 @@ export default class LogScreen extends React.Component {
           }}
           validationSchema={formSchema}
           onSubmit={async (values, actions) => {
-            console.log(values)
             try{
               await submitValuesToDatabase(values)
             }catch(err){
@@ -111,7 +110,6 @@ export default class LogScreen extends React.Component {
             </ListItem>
 
             <Field component={GeolocationField} name="geolocation"/> 
-            {/* <GeolocationField /> */}
             <Field component={GenderPicker} name='gender' />
             <Separator bordered>
               <Text>Forensic Evidence</Text>

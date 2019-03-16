@@ -8,7 +8,7 @@ const executeSql = async (sql, params = []) => {
             sql, 
             params,
             (_, result) => resolve(result),
-            reject
+            (_, error) => reject(error)
         )
     }))
 }
@@ -40,7 +40,7 @@ const insertEntry = async (values)=> {
         ?,
         ?,
         ?,
-        ?',
+        ?,
         ?
         )`
 
@@ -56,8 +56,13 @@ const insertEntry = async (values)=> {
         serializeStringArray(values.physicalEvidenceEntries),
         serializeStringArray(values.photos)
     ]
+    try{
+        const insertResult = await executeSql(sqlString, parameters)
+        console.log(insertResult)
+    } catch(err){
+        console.log(err)
+    }
 
-    console.log(parameters)
 }
 
 
@@ -80,9 +85,6 @@ const submitForm = async (values)=> {
 
     const test = await insertEntry(values)
 
-    const getEntriesString = `SELECT * FROM entries`
-    const resultSet = await executeSql(getEntriesString)
-      
 }
 
 export default submitForm
