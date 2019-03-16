@@ -31,23 +31,6 @@ export default class LogScreen extends React.Component {
     header: null,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      fingerprint: false,
-      hair: false,
-      skin: false,
-    };
-  }
-
-  onValueChange(value) {
-    this.setState({
-      selected: value
-    });
-  }
-
- 
-
   render() {
     return (
       <Container style={{marginBottom: 5}}>
@@ -100,13 +83,13 @@ export default class LogScreen extends React.Component {
             return(
           <Form>
             <Field component={QrInput} name="qrCode"/>
-            <Separator bordered>
+            <Separator >
               <Text>General Information</Text>
             </Separator>
             <Field component={DateField} name="date" /> 
             <Field component={GeolocationField} name="geolocation"/> 
             <Field component={GenderPicker} name='gender' />
-            <Separator bordered>
+            <Separator >
               <Text>Forensic Evidence</Text>
             </Separator>
             <Field component={RadioField} title="Fingerprint" name="fingerprint" iconName="fingerprint" iconType="MaterialIcons"/>
@@ -117,7 +100,7 @@ export default class LogScreen extends React.Component {
             </Separator>
             <FieldArray name="physicalEvidenceEntries" component={PhysicalEvidenceFields} />
 
-            <Separator bordered>
+            <Separator >
               <Text>Photos</Text>
             </Separator>
             <FieldArray component={CameraInput} name="photos" />
