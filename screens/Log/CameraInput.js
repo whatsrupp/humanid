@@ -60,22 +60,6 @@ export default class CameraInput extends Component {
         this.props.push(url)
     }
     
-    renderCameraButton = () => {
-        const cancelButton = (
-        <Button full danger onPress={this.closeCamera}>
-            <Icon active type='FontAwesome' name='camera' />
-            <Text>Cancel</Text>
-        </Button>
-        )
-        const openButton = (
-        <Button full onPress={this.openCamera}>
-            <Icon active type='FontAwesome' name='camera' />
-            <Text>Take Photos</Text>
-        </Button>
-        )
-        return this.state.isOpen ? cancelButton : openButton 
-
-    }
 
     renderThumbnails = ()=>{
         const fieldArrayName = this.props.name
@@ -117,7 +101,6 @@ export default class CameraInput extends Component {
                 <Icon style={{fontSize: 10}}active type='FontAwesome' name='plus' />
             </TouchableOpacity>
             </ScrollView>
-            {this.renderCameraButton()}
 
         </>)
     
