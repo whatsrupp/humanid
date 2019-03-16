@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 
-import {  Button, Container, Header, Separator, Content, Title, Body, Form, Text, Toast } from 'native-base';
+import {  Button, Container, Header, Separator, Content, Title, Body, Form, Text, Toast, Fab, Icon } from 'native-base';
 import { Formik, Field, FieldArray } from 'formik';
 
 import QrInput from './QrInput'
@@ -33,12 +33,7 @@ export default class LogScreen extends React.Component {
 
   render() {
     return (
-      <Container style={{marginBottom: 5}}>
-        <Header>
-          <Body><Title>Log Data</Title></Body>
-        </Header>
-        <Content>
-        <Formik
+      <Formik
           initialValues={{
             hair: false,
             skin: false,
@@ -73,45 +68,54 @@ export default class LogScreen extends React.Component {
                   position: 'bottom',
                   duration: 5000,
                   buttonText: 'Okay',
-                  type: 'warning'
                 })
                 return 
               }
               
               props.handleSubmit()
             }
-            return(
-          <Form>
-            <Field component={QrInput} name="qrCode"/>
-            <Separator >
-              <Text>General Information</Text>
-            </Separator>
-            <Field component={DateField} name="date" /> 
-            <Field component={GeolocationField} name="geolocation"/> 
-            <Field component={GenderPicker} name='gender' />
-            <Separator >
-              <Text>Forensic Evidence</Text>
-            </Separator>
-            <Field component={RadioField} title="Fingerprint" name="fingerprint" iconName="fingerprint" iconType="MaterialIcons"/>
-            <Field component={RadioField} title="Skin Sample" name="skinSample" iconName="user" iconType="FontAwesome"/>
-            <Field component={RadioField} title="Hair" name="hair" iconName="scissors" iconType="Feather"/>
-            <Separator bordered>
-              <Text>Physical Evidence</Text>
-            </Separator>
-            <FieldArray name="physicalEvidenceEntries" component={PhysicalEvidenceFields} />
 
-            <Separator >
-              <Text>Photos</Text>
-            </Separator>
-            <FieldArray component={CameraInput} name="photos" />
-            <Button full style={ {zIndex: 2} } success onPress={handleSubmitButtonPress}><Text>Submit</Text></Button>
-          </Form>
-          )}}
-        >
-          </Formik>
-        </Content>
-      </Container>
+            return(
+              <Container >
+              <Header>
+                <Body><Title>Log Data</Title></Body>
+              </Header>
+              <Content>
+                <Form>
+                  <Field component={QrInput} name="qrCode"/>
+                  <Separator >
+                    <Text>General Information</Text>
+                  </Separator>
+                  <Field component={DateField} name="date" /> 
+                  <Field component={GeolocationField} name="geolocation"/> 
+                  <Field component={GenderPicker} name='gender' />
+                  <Separator >
+                    <Text>Forensic Evidence</Text>
+                  </Separator>
+                  <Field component={RadioField} title="Fingerprint" name="fingerprint" iconName="fingerprint" iconType="MaterialIcons"/>
+                  <Field component={RadioField} title="Skin Sample" name="skinSample" iconName="user" iconType="FontAwesome"/>
+                  <Field component={RadioField} title="Hair" name="hair" iconName="scissors" iconType="Feather"/>
+                  <Separator bordered>
+                    <Text>Physical Evidence</Text>
+                  </Separator>
+                  <FieldArray name="physicalEvidenceEntries" component={PhysicalEvidenceFields} />
+
+                  <Separator >
+                    <Text>Photos</Text>
+                  </Separator>
+                  <FieldArray component={CameraInput} name="photos" />
+                </Form>
+                </Content>
+                <Fab
+                  style={{ backgroundColor: '#32CD32', zIndex: 1000}}
+                  position="bottomRight"
+                  onPress={handleSubmitButtonPress}
+                  >
+                  <Icon active type='FontAwesome' name='save' />
+                </Fab>
+              </Container>
+          )}}>
+      </Formik>
       
-    );
-  }
+    )}
 }
