@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 
-import { Alert, Button, Container, ListItem, Header, Separator, Content, Title, Right, Body, Form, Icon, Text, View, Toast } from 'native-base';
+import {  Button, Container, Header, Separator, Content, Title, Body, Form, Text, Toast } from 'native-base';
 import { Formik, Field, FieldArray } from 'formik';
 
 import QrInput from './QrInput'
@@ -11,6 +11,7 @@ import RadioField from './RadioField';
 import PhysicalEvidenceFields from './PhysicalEvidenceFields'
 import CameraInput from './CameraInput';
 import submitValuesToDatabase from './submitValuesToDatabase'
+import DateField from './DateField';
 
 const formSchema = Yup.object().shape({
   qrCode: Yup.string().required('Please scan a QR code'),
@@ -98,17 +99,11 @@ export default class LogScreen extends React.Component {
             }
             return(
           <Form>
-            <QrInput {...props} />
+            <Field component={QrInput} name="qrCode"/>
             <Separator bordered>
               <Text>General Information</Text>
             </Separator>
-            <ListItem>
-              <View style={{flex:1}}>
-                <Icon active type='FontAwesome' name='calendar' />
-              </View>
-                  <Text>{new Date().toLocaleDateString()}</Text>
-            </ListItem>
-
+            <Field component={DateField} name="date" /> 
             <Field component={GeolocationField} name="geolocation"/> 
             <Field component={GenderPicker} name='gender' />
             <Separator bordered>

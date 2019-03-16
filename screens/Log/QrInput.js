@@ -17,11 +17,12 @@ export default class QrInput extends Component {
     }
 
     submitQRValueToForm = (qrValue) => {
-        return this.props.setFieldValue('qrCode', qrValue)
+        return this.props.form.setFieldValue('qrCode', qrValue)
     }
 
     formQRValue = () => {
-        return this.props.values.qrCode
+        console.log(this.props)
+        return this.props.form.values.qrCode
     }
 
     closeQRScanner = () => {

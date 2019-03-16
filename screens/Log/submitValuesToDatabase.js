@@ -84,7 +84,6 @@ const submitForm = async (values)=> {
     await executeSql(createTableString);
 
     const test = await insertEntry(values)
-
 }
 
 export default submitForm
