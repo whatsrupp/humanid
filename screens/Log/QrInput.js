@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import { Button, Icon, Text } from 'native-base';
-
+import { Button, Icon, Text, ListItem, View, Fab } from 'native-base';
+import { Modal} from 'react-native'
 import QrScanner from './QrScanner'
 
 export default class QrInput extends Component {
@@ -45,28 +45,31 @@ export default class QrInput extends Component {
         return this.formQRValue() ? this.formQRValue() : "Scan QR Code"
     }
 
-    renderQRButton = () => {
-        const cancelButton = (
-        <Button full danger onPress={this.handleCancelPress}>
-            <Icon active type='FontAwesome' name='qrcode' />
-            <Text>Cancel</Text>
-        </Button>
-        )
-        const openButton = (
-        <Button full onPress={this.handleOnPress}>
-            <Icon active type='FontAwesome' name='qrcode' />
-            <Text>{this.getButtonText()}</Text>
-        </Button>
-        )
-
-        return this.state.isOpen ? cancelButton : openButton 
-    }
+    renderQR = () => {
+        if(!this.state.isOpen) return null 
+        return (<Modal
+          animationType="slide"
+          >
+          <QrScanner handleQRSubmit={this.handleQRSubmit} />
+          <Fab
+                style={{backgroundColor: '#FF6347' }}
+                position="bottomRight"
+                onPress={() => this.setState({ isOpen: !this.state.isOpen })}>
+                <Icon active type='FontAwesome' name='qrcode' />
+              </Fab>
+        </Modal>)
+      }
 
     render = () => {
         return(
             <>
-                {this.state.isOpen ? <QrScanner handleQRSubmit={this.handleQRSubmit} /> : null}
-                {this.renderQRButton()}
+                <ListItem onPress={this.handleOnPress}>
+                    <View style={{width: 40, marginRight: 10, flex: 1}}>
+                    <Icon active type='FontAwesome' name='qrcode'/>
+                    </View>
+                    <Text>{this.getButtonText()}</Text>
+                </ListItem>
+                {this.renderQR()}
             </>
         )
     }

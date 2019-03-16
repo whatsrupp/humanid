@@ -82,10 +82,10 @@ export default class LogScreen extends React.Component {
               </Header>
               <Content>
                 <Form>
-                  <Field component={QrInput} name="qrCode"/>
                   <Separator >
                     <Text>General Information</Text>
                   </Separator>
+                  <Field component={QrInput} name="qrCode"/>
                   <Field component={DateField} name="date" /> 
                   <Field component={GeolocationField} name="geolocation"/> 
                   <Field component={GenderPicker} name='gender' />
