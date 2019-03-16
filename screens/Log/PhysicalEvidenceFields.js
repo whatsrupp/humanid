@@ -35,7 +35,7 @@ export default class PhysicalEvidenceFields extends Component {
         return(
             <>
                 {this.renderRows()}
-                <Button transparent primary onPress={this.handleAddNewRow}><Text>+</Text></Button>
+                <Button transparent primary full onPress={this.handleAddNewRow}><Text>+</Text></Button>
             </>
         )
 
