@@ -73,7 +73,7 @@ export default class HomeScreen extends React.Component {
     
     if(!data){
       return(
-        <Card>
+        <Card bordered>
           <CardItem header>
             <Text>No Data Yet!</Text>
           </CardItem>
@@ -88,56 +88,53 @@ export default class HomeScreen extends React.Component {
     
     return(
       <Card>
-        <CardItem header>
-          <Text>Humanid Entry</Text>
-        </CardItem>
-        <CardItem header>
+        <CardItem header bordered>
           <Text>General Information</Text>
         </CardItem>
-        <CardItem>
+        <CardItem bordered>
           <Text>Recorded on: {dateOfEntry}</Text>
         </CardItem>
-        <CardItem>
+        <CardItem bordered>
           <Text>QR Code: {qrCode}</Text>
-        </CardItem>
-        <CardItem>
+        </CardItem >
+        <CardItem bordered>
           <Text>Gender: {gender.toUpperCase()}</Text>
         </CardItem>
-        <CardItem>
+        <CardItem bordered>
           <Text>Longitude: {longitude}</Text>
         </CardItem>
-        <CardItem>
+        <CardItem bordered>
           <Text>Latitude: {latitude}</Text>
         </CardItem>
-        <CardItem header>
+        <CardItem bordered header>
           <Text>Samples</Text>
         </CardItem>
-        <CardItem>
+        <CardItem bordered>
           <Text>Fingerprint: {fingerprint === 1 ? 'True' : 'False'}</Text>
         </CardItem>
 
-        <CardItem>
+        <CardItem bordered>
           <Text>Hair: {hair === 1 ? 'True' : 'False'}</Text>
         </CardItem>
 
-        <CardItem>
+        <CardItem bordered >
           <Text>Skin Sample: {skin === 1 ? 'True' : 'False'}</Text>
         </CardItem>
 
-        <CardItem header>
+        <CardItem bordered header>
           <Text>Photos</Text>
         </CardItem>
-        <CardItem>
+        <CardItem bordered>
         {this.renderThumbnails(photoUrls)}
         </CardItem>
 
-        <CardItem header>
+        <CardItem bordered header>
           <Text>Physical Evidence</Text>
         </CardItem>
 
         {physicalEvidenceEntries.map((entry, index) => {
           return(
-            <CardItem key={index}>
+            <CardItem bordered key={index}>
               <Text>{entry}</Text>
             </CardItem>      
           )
@@ -156,7 +153,7 @@ export default class HomeScreen extends React.Component {
         <Header>
           <Body><Title>Retrieve Data</Title></Body>
         </Header>
-        <Content>
+        <Content style={{padding: 20}}>
         
           {this.renderDataDisplay()}
 
