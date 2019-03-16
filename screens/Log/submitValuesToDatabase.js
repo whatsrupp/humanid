@@ -58,7 +58,6 @@ const insertEntry = async (values)=> {
     ]
     try{
         const insertResult = await executeSql(sqlString, parameters)
-        console.log(insertResult)
     } catch(err){
         console.log(err)
     }

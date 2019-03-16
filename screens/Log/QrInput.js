@@ -21,7 +21,6 @@ export default class QrInput extends Component {
     }
 
     formQRValue = () => {
-        console.log(this.props)
         return this.props.form.values.qrCode
     }
 

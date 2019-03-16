@@ -7,7 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LogScreen from '../screens/Log/LogScreen';
-import RetrieveScreen from '../screens/RetrieveScreen';
+import RetrieveScreen from '../screens/Retrieve/RetrieveScreen';
 
 import { create } from 'uuid-js';
 
