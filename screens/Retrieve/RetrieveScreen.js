@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component {
     const {physicalEvidenceEntries, skin, qrCode, photoUrls, latitude, longitude, hair, gender, fingerprint, dateOfEntry} = data
     
     return(
-      <Card>
+      <Card >
         <CardItem header bordered>
           <Text>General Information</Text>
         </CardItem>

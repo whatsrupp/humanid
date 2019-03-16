@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Camera from './Camera'
 import { Button, Icon, Text, Thumbnail } from 'native-base';
-import { BlurView } from 'expo';
+import { BlurView, ImagePicker, Permissions } from 'expo';
 import { Image, StyleSheet, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
 
 const thumbnailSize = 50
@@ -76,6 +76,23 @@ export default class CameraInput extends Component {
 
 
     }
+
+
+    useImagePicker = async () => {
+        const result = await ImagePicker.launchCameraAsync()
+        console.log(result)
+        if(!result.cancelled){
+            this.addPhotoToForm(result.uri)
+        }
+    }
+
+    async componentDidMount() {
+        const { status: cameraStatus } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status: libraryStatus } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+        this.setState({ hasCameraPermission: cameraStatus === 'granted', hasCameraRollPermission: libraryStatus ==='granted'});
+        
+      }
     
     render = () => {
         return (<>
@@ -96,7 +113,7 @@ export default class CameraInput extends Component {
                     borderRadius:thumbnailSize,
                     margin: 10,
                 }}
-                onPress={this.openCamera}
+                onPress={this.useImagePicker}
             >
                 <Icon style={{fontSize: 10}}active type='FontAwesome' name='plus' />
             </TouchableOpacity>
