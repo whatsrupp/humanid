@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 
 import {  Button, Container, Header, Separator, Content, Title, Body, Form, Text, Toast, Fab, Icon } from 'native-base';
 import { Formik, Field, FieldArray } from 'formik';
-
+import {Alert} from 'react-native'
 import QrInput from './QrInput'
 import GeolocationField from './GeolocationField';
 import GenderPicker from './GenderPicker';
@@ -29,6 +29,7 @@ const formSchema = Yup.object().shape({
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
+    title: 'Log Screen',
   };
 
   render() {
@@ -42,9 +43,28 @@ export default class LogScreen extends React.Component {
             photos: []
           }}
           validationSchema={formSchema}
-          onSubmit={async (values, actions) => {
+          onSubmit={async (values, {resetForm}) => {
             try{
               await submitValuesToDatabase(values)
+              resetForm({
+                hair: false,
+                skin: false,
+                fingerprint: false,
+                physicalEvidenceEntries: [],
+                photos: []
+              })
+
+              this.props.navigation.push('Retrieve')
+
+
+              Toast.show({
+                text: 'Successfully Saved Data',
+                position: 'top',
+                duration: 2000,
+                buttonText: 'Okay',
+                type: 'success'
+              })
+            
             }catch(err){
               console.log(err)
             }
@@ -90,20 +110,20 @@ export default class LogScreen extends React.Component {
                   <Field component={GeolocationField} name="geolocation"/> 
                   <Field component={GenderPicker} name='gender' />
                   <Separator >
+                    <Text>Photos</Text>
+                  </Separator>
+                  <FieldArray component={CameraInput} name="photos" />
+                  <Separator >
                     <Text>Forensic Evidence</Text>
                   </Separator>
                   <Field component={RadioField} title="Fingerprint" name="fingerprint" iconName="fingerprint" iconType="MaterialIcons"/>
                   <Field component={RadioField} title="Skin Sample" name="skinSample" iconName="user" iconType="FontAwesome"/>
                   <Field component={RadioField} title="Hair" name="hair" iconName="scissors" iconType="Feather"/>
+
                   <Separator bordered>
                     <Text>Physical Evidence</Text>
                   </Separator>
                   <FieldArray name="physicalEvidenceEntries" component={PhysicalEvidenceFields} />
-
-                  <Separator >
-                    <Text>Photos</Text>
-                  </Separator>
-                  <FieldArray component={CameraInput} name="photos" />
                 </Form>
                 </Content>
                 <Fab
