@@ -67,7 +67,7 @@ export default class QrInput extends Component {
                     <View style={{width: 40, marginRight: 10, flex: 1}}>
                     <Icon active type='FontAwesome' name='qrcode'/>
                     </View>
-                    <Text>{this.getButtonText()}</Text>
+                    <Text style={{color:"#3299CC"}}>{this.getButtonText()}</Text>
                 </ListItem>
                 {this.renderQR()}
             </>
