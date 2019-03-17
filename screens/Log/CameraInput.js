@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import Camera from './Camera'
 import { Button, Icon, Text, Thumbnail } from 'native-base';
 import { BlurView, ImagePicker, Permissions } from 'expo';
-import { Image, StyleSheet, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
-
-const thumbnailSize = 50
+import {Alert, Image, StyleSheet, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
+const thumbnailSize = 100
 export default class CameraInput extends Component {
     constructor(props){
         super(props)
@@ -28,7 +27,7 @@ export default class CameraInput extends Component {
                 <Camera ref={ref => {this.camera = ref}}/>
                 <Button full primary onPress={this.takePhoto}>
                     <Icon active type='FontAwesome' name='camera' />
-                </Button>
+                </Button> 
                 <Button full danger onPress={this.closeCamera}>
                     <Text>Cancel</Text>
                 </Button>
@@ -60,16 +59,29 @@ export default class CameraInput extends Component {
         this.props.push(url)
     }
     
+    onThumbnailPress = (index)=>{
+        Alert.alert('Delete Photo?', '', [
+            {
+                text: 'Cancel',
+                style: 'cancel'
+            },
+            {text: 'OK', onPress: () => this.props.remove(index)},
+
+        ])
+    }
 
     renderThumbnails = ()=>{
         const fieldArrayName = this.props.name
         const entries = this.props.form.values[fieldArrayName]
         if (!entries) return null
 
+    
         return entries.map((entry, index)=>{
             const fieldName = `${fieldArrayName}.${index}`
              return(
-                 <Thumbnail key={fieldName} source={{uri: entries[index]}} style={{margin: 10, height: thumbnailSize, width: thumbnailSize, borderRadius: thumbnailSize/2}}/>
+                 <TouchableOpacity key={fieldName} onPress={()=>this.onThumbnailPress(index)}>
+                     <Thumbnail  source={{uri: entries[index]}} style={{margin: 10, height: thumbnailSize, width: thumbnailSize, borderRadius: thumbnailSize/2}}/>
+                 </TouchableOpacity>
              )
         })
        
