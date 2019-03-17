@@ -8,6 +8,7 @@ import { Image, StyleSheet, Modal, ScrollView, TouchableOpacity } from 'react-na
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
+    title: 'Retrieve Screen',
   };
 
   constructor(props){
