@@ -9,7 +9,6 @@ import SettingsScreen from '../screens/SettingsScreen';
 import LogScreen from '../screens/Log/LogScreen';
 import RetrieveScreen from '../screens/Retrieve/RetrieveScreen';
 
-import { create } from 'uuid-js';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -86,6 +85,6 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  RetrieveStack,
   LogStack,
+  RetrieveStack,
 });
