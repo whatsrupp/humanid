@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 import { Picker, Container, ListItem, Radio, Header, Content, Title,Left, Right, Body, Form, Item, Input, Icon, Label, DatePicker, Separator, Text, View } from 'native-base';
-
+import {Switch} from 'react-native'
 export default class RadioField extends Component {
     
     handlePress = () => {
@@ -12,16 +12,15 @@ export default class RadioField extends Component {
 
     render = () => {
      return(
-    <ListItem onPress={this.handlePress}>
+    <ListItem >
     <View style={{marginRight: 10, width: 50}}>
-    <Icon active type={this.props.iconType} name={this.props.iconName} />
-
+      <Icon active type={this.props.iconType} name={this.props.iconName} />
     </View>
     <Left>
       <Text>{this.props.title}</Text>
     </Left>
     <Right>
-      <Radio selected={this.props.field.value} />
+      <Switch onValueChange={this.handlePress} value={this.props.field.value} /> 
     </Right>
     </ListItem>
      )
