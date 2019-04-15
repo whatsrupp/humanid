@@ -5,7 +5,6 @@ import {Field } from 'formik'
 
 export default class PhysicalEvidenceFields extends Component {
     
-
     renderRows = () => {
        const fieldArrayName = this.props.name
        const entries = this.props.form.values[fieldArrayName]
