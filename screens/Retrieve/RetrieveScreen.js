@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {  Card, Fab, Icon, Button, Container, Header, Separator, Content, Title, Body, Form, Text, Toast, View, CardItem, Thumbnail, Left } from 'native-base';
+import {  Card, Fab, Icon, Container, Header, Content, Title, Body, Text, CardItem, Thumbnail } from 'native-base';
 import QRScanner from '../Log/QrScanner'
 import {getEntryByQrCode} from './requests/getEntry'
-import { Image, StyleSheet, Modal, ScrollView, TouchableOpacity } from 'react-native';
+import {  Modal, ScrollView } from 'react-native';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -19,12 +19,6 @@ export default class HomeScreen extends React.Component {
       qrCode: null
     }
   }
-
-  // componentDidMount = async () =>{
-  //   const data = await getEntryByQrCode('5038681005996')
-  //   await this.setState({data})
-
-  // }
 
   handleQRSubmit = async (qrCode)=>{
     await this.setState({qrCode,isScanning: false, data})
