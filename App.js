@@ -1,8 +1,9 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading, Asset, Font, Icon, ScreenOrientation } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import {Root} from 'native-base'
+
 
 export default class App extends React.Component {
   state = {
@@ -56,6 +57,8 @@ export default class App extends React.Component {
   };
 
   _handleFinishLoading = () => {
+    ScreenOrientation.allowAsync(ScreenOrientation.Orientation.ALL_BUT_UPSIDE_DOWN);
+
     this.setState({ isLoadingComplete: true });
   };
 }
