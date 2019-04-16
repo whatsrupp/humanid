@@ -1,25 +1,26 @@
-import Expo, { SQLite } from 'expo';
+import { SQLite } from 'expo';
 
 const db = SQLite.openDatabase('humanId');
 
 const executeSql = async (sql, params = []) => {
+  return new Promise((resolve, reject) =>
+    db.transaction(tx => {
+      tx.executeSql(
+        sql,
+        params,
+        (_, result) => resolve(result),
+        (_, error) => reject(error)
+      );
+    })
+  );
+};
 
-    return new Promise((resolve, reject) => db.transaction(tx => {
-        tx.executeSql(
-            sql, 
-            params,
-            (_, result) => resolve(result),
-            (_, error) => reject(error)
-        )
-    }))
-}
+const serializeStringArray = list => {
+  return list.join(';');
+};
 
-const serializeStringArray = (list) => {
-    return list.join(';')
-}
-
-const insertEntry = async (values)=> {
-    const sqlString = `INSERT INTO entries (
+const insertEntry = async values => {
+  const sqlString = `INSERT INTO entries (
         qrCode,
         dateOfEntry,
         latitude,
@@ -43,31 +44,29 @@ const insertEntry = async (values)=> {
         ?,
         ?,
         ?
-        )`
+        )`;
 
-    const parameters = [
-        values.qrCode,
-        new Date().toUTCString(),
-        values.latitude,
-        values.longitude,
-        values.gender,
-        values.fingerprint,
-        values.skin,
-        values.hair,
-        serializeStringArray(values.physicalEvidenceEntries),
-        serializeStringArray(values.photos)
-    ]
-    try{
-        const insertResult = await executeSql(sqlString, parameters)
-    } catch(err){
-        console.log(err)
-    }
+  const parameters = [
+    values.qrCode,
+    new Date().toUTCString(),
+    values.latitude,
+    values.longitude,
+    values.gender,
+    values.fingerprint,
+    values.skin,
+    values.hair,
+    serializeStringArray(values.physicalEvidenceEntries),
+    serializeStringArray(values.photos)
+  ];
+  try {
+    await executeSql(sqlString, parameters);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
-}
-
-
-const submitForm = async (values)=> {
-    const createTableString = `CREATE TABLE IF NOT EXISTS entries (
+const submitForm = async values => {
+  const createTableString = `CREATE TABLE IF NOT EXISTS entries (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         qrCode TEXT NOT NULL,
         dateOfEntry DATE NOT NULL,
@@ -79,11 +78,11 @@ const submitForm = async (values)=> {
         hair BOOL NOT NULL,
         physicalEvidence TEXT,
         photoUrls TEXT
-    )`
+    )`;
 
-    await executeSql(createTableString);
+  await executeSql(createTableString);
 
-    const test = await insertEntry(values)
-}
+  const test = await insertEntry(values);
+};
 
-export default submitForm
+export default submitForm;
