@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import Camera from './Camera'
 import { Button, Icon, Text, Thumbnail } from 'native-base';
-import { BlurView, ImagePicker, Permissions } from 'expo';
-import {Alert, Image, StyleSheet, View, Modal, ScrollView, TouchableOpacity } from 'react-native';
+import {ImagePicker, Permissions } from 'expo';
+import {Alert, Modal, ScrollView, TouchableOpacity } from 'react-native';
+import Camera from './Camera'
+
 const thumbnailSize = 100
 export default class CameraInput extends Component {
     constructor(props){
@@ -13,7 +14,6 @@ export default class CameraInput extends Component {
             isSavingPhoto: false
         }
     }
-
 
       setModalVisible = (visible) => {
         this.setState({modalVisible: visible});
@@ -47,7 +47,7 @@ export default class CameraInput extends Component {
 
     takePhoto = async () => {
         if (this.camera) {
-            let photo = await this.camera.camera.takePictureAsync();
+            const photo = await this.camera.camera.takePictureAsync();
             this.addPhotoToForm(photo.uri)
             this.closeCamera()
           }
@@ -84,15 +84,11 @@ export default class CameraInput extends Component {
                  </TouchableOpacity>
              )
         })
-       
-
 
     }
-
-
+    
     useImagePicker = async () => {
         const result = await ImagePicker.launchCameraAsync()
-        console.log(result)
         if(!result.cancelled){
             this.addPhotoToForm(result.uri)
         }
@@ -111,7 +107,7 @@ export default class CameraInput extends Component {
             {this.renderCamera()}
             <ScrollView
             horizontal
-            showsHorizontalScrollIndicator={true}
+            showsHorizontalScrollIndicator
             >
             {this.renderThumbnails()}
             <TouchableOpacity 

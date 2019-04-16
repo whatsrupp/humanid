@@ -19,16 +19,15 @@ export default class CameraExample extends React.Component {
           ? Camera.Constants.Type.front
           : Camera.Constants.Type.back,
       });
-    console.log(this.camera.takePictureAsync)
   }
 
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
       return <View />;
-    } else if (hasCameraPermission === false) {
+    } if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
-    } else {
+    } 
       return (
         <View style={{ flex: 1}}>
           <Camera ref={ref => { this.camera = ref}} style={{ flex: 1 }} type={this.state.type}>
@@ -57,6 +56,6 @@ export default class CameraExample extends React.Component {
           </Camera>
         </View>
       );
-    }
+    
   }
 }

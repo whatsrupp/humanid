@@ -1,4 +1,5 @@
 import Expo, { SQLite } from 'expo';
+
 const db = SQLite.openDatabase('humanId');
 
 const executeSql = async (sql, params = []) => {

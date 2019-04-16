@@ -28,14 +28,14 @@ export default class GeolocationField extends Component {
   }
 
   _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
       this.setState({
         errorMessage: 'Permission to access location was denied',
       });
     }
 
-    let location = await Location.getCurrentPositionAsync({});
+    const location = await Location.getCurrentPositionAsync({});
     this.updateFormValues({
       longitude: location.coords.longitude,
       latitude: location.coords.latitude
@@ -44,7 +44,7 @@ export default class GeolocationField extends Component {
   };
 
   render() {
-    let text = 'Waiting..';
+    const text = 'Waiting..';
     let longitudeText = text;
     let latitudeText = text;
     if (this.state.errorMessage) {

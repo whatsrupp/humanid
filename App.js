@@ -1,8 +1,8 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon, ScreenOrientation } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
 import {Root} from 'native-base'
+import AppNavigator from './navigation/AppNavigator';
 
 
 export default class App extends React.Component {
@@ -19,7 +19,7 @@ export default class App extends React.Component {
           onFinish={this._handleFinishLoading}
         />
       );
-    } else {
+    } 
       return (
         <Root>
 
@@ -29,7 +29,7 @@ export default class App extends React.Component {
       </View>
         </Root>
       );
-    }
+    
   }
 
   _loadResourcesAsync = async () => {

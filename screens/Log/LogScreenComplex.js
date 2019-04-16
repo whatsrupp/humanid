@@ -8,6 +8,7 @@ import { Formik } from 'formik';
 import { MonoText } from '../../components/StyledText';
 
 import FormTest from './Form'
+
 export default class LogScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -80,7 +81,7 @@ export default class LogScreen extends React.Component {
                 <Text>Fingerprint</Text>
               </Left>
               <Right>
-                <Radio selected={true} />
+                <Radio selected />
               </Right>
             </ListItem>
 
@@ -89,7 +90,7 @@ export default class LogScreen extends React.Component {
                 <Text>Skin Sample</Text>
               </Left>
               <Right>
-                <Radio selected={true} />
+                <Radio selected />
               </Right>
             </ListItem>
 

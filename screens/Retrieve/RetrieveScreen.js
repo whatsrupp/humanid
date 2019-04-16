@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {  Card, Fab, Icon, Container, Header, Content, Title, Body, Text, CardItem, Thumbnail } from 'native-base';
+import {  Modal, ScrollView } from 'react-native';
 import QRScanner from '../Log/QrScanner'
 import {getEntryByQrCode} from './requests/getEntry'
-import {  Modal, ScrollView } from 'react-native';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
     return(
         <ScrollView
         horizontal
-      showsHorizontalScrollIndicator={true}>
+      showsHorizontalScrollIndicator>
               {urls.map((url, index)=>{
 
        return( <Thumbnail key={index} source={{uri: url}} style={{marginLeft: index == 0 ? 0 : 10, marginRight: 10, height: thumbnailSize, width: thumbnailSize, borderRadius: thumbnailSize/2}}/>)
@@ -64,7 +64,7 @@ export default class HomeScreen extends React.Component {
   }
 
   renderDataDisplay = ()=>{
-    const data = this.state.data
+    const {data} = this.state
     
     if(!data){
       return(
