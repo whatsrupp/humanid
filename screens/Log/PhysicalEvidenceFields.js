@@ -46,6 +46,7 @@ export default class PhysicalEvidenceFields extends Component {
     handleAddNewRow = async ()=>{
         await this.props.push('') 
         this.focusLatestField()
+
         
     }
     render = () => {
