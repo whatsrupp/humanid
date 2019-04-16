@@ -61,7 +61,9 @@ export default class LogScreen extends React.Component {
               skin: false,
               fingerprint: false,
               physicalEvidenceEntries: [],
-              photos: []
+              photos: [],
+              longitude: values.longitude,
+              latitude: values.latitude
             });
 
             this.props.navigation.push('Retrieve');
@@ -80,6 +82,7 @@ export default class LogScreen extends React.Component {
         render={props => {
           const handleSubmitButtonPress = () => {
             props.validateForm();
+
             const errorKeys = Object.keys(props.errors);
             if (errorKeys.length > 0) {
               let errorString = '';
