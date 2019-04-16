@@ -1,10 +1,8 @@
-import Expo, { SQLite } from 'expo';
-
+import { SQLite } from 'expo';
 
 const db = SQLite.openDatabase('humanId');
 
 const executeSql = async (sql, params = []) => {
-
     return new Promise((resolve, reject) => db.transaction(tx => {
         tx.executeSql(
             sql, 
@@ -16,10 +14,8 @@ const executeSql = async (sql, params = []) => {
 }
 
 const deserializeStringArray = (list) => {
-    console.log(list)
-    const test = list.split(';')
-    console.log(test)
-    return test
+    const desrializedArray = list.split(';')
+    return desrializedArray
 }
 
 export const getEntryByQrCode = async (qrCode) =>{
