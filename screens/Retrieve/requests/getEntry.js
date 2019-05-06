@@ -23,7 +23,7 @@ const deserializeStringArray = list => {
 export const getEntryByQrCode = async qrCode => {
   const sql = `SELECT * FROM entries
     WHERE qrCode = ?
-    ORDER BY dateOfEntry DESC
+    ORDER BY dateOfEntry ASC
     LIMIT 1`;
 
   const parameters = [qrCode];
