@@ -18,6 +18,12 @@ export default class GenderPicker extends Component {
             mode="dropdown"
             iosHeader="Select Gender"
             iosIcon={<Icon name="arrow-down" />}
+            supportedOrientations={[
+              'Portrait',
+              'Landscape',
+              'Landscape-left',
+              'Landscape-right'
+            ]}
             selectedValue={this.props.field.value}
             onValueChange={this.onValueChange}
           >
