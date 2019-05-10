@@ -23,12 +23,14 @@ const deserializeStringArray = list => {
 export const getEntryByQrCode = async qrCode => {
   const sql = `SELECT * FROM entries
     WHERE qrCode = ?
-    ORDER BY dateOfEntry ASC
-    LIMIT 1`;
-
+    ORDER BY dateOfEntry DESC`;
   const parameters = [qrCode];
   const data = await executeSql(sql, parameters);
-  const entry = data.rows._array[0];
+  const sortedData = data.rows._array.sort((a, b) => {
+    return new Date(b.dateOfEntry) - new Date(a.dateOfEntry);
+  });
+  const entry = sortedData[0];
+
   entry.physicalEvidenceEntries = deserializeStringArray(
     entry.physicalEvidence
   );
